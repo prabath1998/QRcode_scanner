@@ -10,7 +10,8 @@ function App() {
   const [scanResultFile, setScanResultFile] = useState('');
   const [scanResultWebCam, setScanResultWebCam] =  useState('');
   const classes = useStyles();
-  const qrRef = useRef(null);
+  const qrRef = useRef();
+
 
 
   const generateQrCode = async () => {
@@ -61,6 +62,7 @@ function App() {
                       <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
                         <Button className={classes.btn} variant="contained" color="secondary" onClick={onScanFile}>Scan Qr Code</Button>
                         <QrReader
+                         
                           ref={qrRef}
                           scanDelay={300}
                           containerStyle={{width: '100%'}}
