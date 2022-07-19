@@ -1,25 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  Container,
+  Card,
+  CardContent,
+  makeStyles,
+  Grid,
+  TextField,
+  Button,
+} from "@material-ui/core";
+import QRCode from "qrcode";
 
 function App() {
+  const classes = useStyles();
+
+  const generateQrCode = async() => {
+    try {
+      const response = await QRCode.toDataURL('Test QR Code generation')
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className={classes.container}>
+      <Card>
+        <h2 className={classes.title}>Generate & Scan QR Codes</h2>
+        <CardContent>
+          <Grid container spacing={2}>
+            <Grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+              <TextField label="Enter Text Here" />
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.btn}
+                onClick={()=> generateQrCode()}
+              >
+                Generate
+              </Button>
+            </Grid>
+            <Grid item xl={4} lg={4} md={6} sm={12} xs={12}></Grid>
+            <Grid item xl={4} lg={4} md={6} sm={12} xs={12}></Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </Container>
   );
 }
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: 10,
+  },
+  title: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#3f51b5",
+    color: "#fff",
+    padding: 20,
+  },
+  btn: {
+    marginTop: 10,
+    marginBottom: 20,
+  },
+}));
 export default App;
